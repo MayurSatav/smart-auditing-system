@@ -5,8 +5,8 @@ from .views import (
     InvoiceCreateView,
     InvoiceUpdateView,
     InvoiceDeleteView,
-    CompleteView,
     extractinvoice,
+    Invoicecompleteview,
     graphView,
     graph,
     graphViewMonthly,
@@ -23,7 +23,7 @@ urlpatterns = [
     path('invoice/<int:pk>/update/', InvoiceUpdateView.as_view(), name='invoice-update'),
     path('invoice/<int:pk>/delete/', InvoiceDeleteView.as_view(), name='invoice-delete'),
     
-    path('completeview/', CompleteView.as_view(), name='invoicedata-complete'),
+    path('completeview/', views.Invoicecompleteview, name='invoicedata-complete'),
     path('filter/', views.filter, name='invoicedata-filter'),
     path('filter1/', views.filter1, name='invoicedata-filter1'),
     path('filter2/', views.filter2, name='invoicedata-filter2'),

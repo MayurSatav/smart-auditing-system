@@ -17,6 +17,8 @@ from .models import connectionToMail as tf
 import imaplib
 import xlwt
 
+from django.core.paginator import Paginator
+
 from django.views import View
 from rest_framework.views import APIView
 from rest_framework.response import  Response
@@ -71,13 +73,33 @@ class InvoiceDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-class CompleteView(LoginRequiredMixin,ListView):
+def Invoicecompleteview(request):
+    a = Invoicelist.objects.values('issuer').distinct().aggregate(Count('issuer'))
+    b = Invoicelist.objects.all().aggregate(Sum('amount'))
+    total_author = a["issuer__count"]
+    total_amount = b["amount__sum"]
+    c = Invoicelist.objects.values('amount').distinct().aggregate(Count('amount'))
+    amount_count = c['amount__count']
+    
+    contact_list=Invoicelist.objects.filter(author=request.user)
+    paginator = Paginator(contact_list, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'invoices': page_obj,'total_amount':total_amount,'total_author':total_author,'total_count':amount_count}
+    
+    return render(request, 'invoicedata/completeview.html', context)
+
+    
+
+
+'''class CompleteView(LoginRequiredMixin,ListView):
     model = Invoicelist
     template_name = 'invoicedata/completeview.html'
     context_object_name = 'invoices'
     
     def get_queryset(self):
-        return self.model.objects.all().filter(author=self.request.user).order_by('-date_posted')
+        return self.model.objects.all().filter(author=self.request.user).order_by('-date_posted')'''
 
 def filter(request):
     if request.method == "GET":

@@ -10,39 +10,39 @@
     <h2>Dashboard</h2>
     <hr>
     <section class='statis text-center'>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-3">
-              <div class="box bg-primary">
-                <i class="fa fa-inr "></i>
-                <h3>5,154</h3>
-                <p class="lead">Total Amount</p>
-              </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="box bg-primary">
+              <i class="fa fa-inr "></i>
+              <h3>{{ total_amount }}</h3>
+              <p class="lead">Total Amount</p>
             </div>
-            <div class="col-md-3">
-              <div class="box bg-warning">
-                <i class="fa fa-industry "></i>
-                <h3>245</h3>
-                <p class="lead">Vendors</p>
-              </div>
+          </div>
+          <div class="col-md-3">
+            <div class="box bg-warning">
+              <i class="fa fa-industry "></i>
+              <h3>{{total_author}}</h3>
+              <p class="lead">Vendors</p>
             </div>
-            <div class="col-md-3">
-              <div class="box bg-success">
-                <i class="fa fa-shopping-cart"></i>
-                <h3>5,154</h3>
-                <p class="lead">Total Active</p>
-              </div>
+          </div>
+          <div class="col-md-3">
+            <div class="box bg-success">
+              <i class="fa fa-shopping-cart"></i>
+              <h3>{{total_count}}</h3>
+              <p class="lead">Total Transaction</p>
             </div>
-            <div class="col-md-3">
-              <div class="box bg-danger">
-                <i class="fa fa-handshake-o"></i>
-                <h3>5,154</h3>
-                <p class="lead">Total Deactive</p>
-              </div>
+          </div>
+          <div class="col-md-3">
+            <div class="box bg-danger">
+              <i class="fa fa-handshake-o"></i>
+              <h3>5,154</h3>
+              <p class="lead">Total Deactive</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
 
       <div class="card">
@@ -144,7 +144,25 @@
           </tbody>
           {% endfor %}
         </table>
+        <div class="pagination">
+          <span class="step-links">
+              {% if invoices.has_previous %}
+                  <a href="?page=1">&laquo; first</a>
+                  <a href="?page={{ invoices.previous_page_number }}">previous</a>
+              {% endif %}
+      
+              <span class="current">
+                  Page {{ invoices.number }} of {{ invoices.paginator.num_pages }}.
+              </span>
+      
+              {% if invoices.has_next %}
+                  <a href="?page={{ invoices.next_page_number }}">next</a>
+                  <a href="?page={{ invoices.paginator.num_pages }}">last &raquo;</a>
+              {% endif %}
+          </span>
       </div>
+      </div>
+      
       
       <script src="{% static 'js/yearGraph.js' %}" type="text/javascript"></script>
       
