@@ -1,0 +1,29 @@
+{% extends "invoicedata/base.html" %}
+{% block content %}
+<nav class="navbar navbar-dark bg-dark">
+    <h4 style="color:white;" >New Entry</h4>
+</nav>
+    <br>
+
+    <article class="media content-section">
+        <div class="media-body">
+            <div align="center">
+                <font face = "Comic sans MS">
+                    <h1>File downloaded successfully from mail</h1>
+                    <h2>Now you can  feed this file to your system</h2>
+                </font>
+
+                <form action="/mailExtract/" method="post">
+                    {% csrf_token %}
+                    {% for file in flist %}
+                    <input type="radio" id="path1" name="path1" value={{ file }} > {{ file }}
+                    <br>
+                    {% endfor %}
+                <input type="submit">
+                </form>
+                
+            </div>
+        
+        </div>
+    </article>
+{% endblock content %}

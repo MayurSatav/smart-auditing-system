@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Yearly Dashboard</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    var a1="{{ a }}";
+</script>
+{% load static %}
+    <script src="{% static '/js/monthGraph.js' %}" type="text/javascript"></script>
+
+<body>
+<div>
+    <div style="width:60%" >
+        <h1>Monthly invoice record</h1>
+        <canvas id="myChart" width="30" height="10"></canvas>
+    </div>
+
+    <div style="width:50%" style="float:left">
+        <h1>Monthly amount spend on each issuer</h1>
+        <canvas id="myChart1" width="30" height="10"></canvas>
+
+    </div>
+
+
+</div>
+</body>
+
+</html>

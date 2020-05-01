@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Yearly Dashboard</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{% load static %}
+    <script src="{% static '/js/yearGraph.js' %}" type="text/javascript"></script>
+<body>
+<div>
+    <div style="width:60%" >
+        <h1>Monthly invoice record</h1>
+        <canvas id="myChart" width="30" height="10"></canvas>
+        <font size="1">
+            <form method="get" action="/invoice/graphViewMonthly/">
+
+               <button type="submit" name="submit" value="January"  style="width:70px;margin-left:10px">January</button></a>
+               <button type="submit" name="submit" value="February" style="width:70px">February</button>
+               <button type="submit" name="submit" value="March" style="width:70px">March</button>
+               <button type="submit" name="submit" value="April" style="width:70px">April</button>
+               <button type="submit" name="submit" value="May" style="width:70px">May</button>
+               <button type="submit" name="submit" value="June" style="width:70px">June</button>
+               <button type="submit" name="submit" value="July" style="width:70px">July</button>
+               <button type="submit" name="submit" value="August" style="width:70px">August</button>
+               <button type="submit" name="submit" value="September" style="width:70px">September</button>
+               <button type="submit" name="submit" value="October" style="width:70px">October</button>
+               <button type="submit" name="submit" value="November" style="width:70px">November</button>
+               <button type="submit" name="submit" value="December" style="width:70px">December</button>
+            </form>
+        </font>
+    </div>
+
+     <div style="width:50%" style="float:left">
+        <h1>Yearly amount spend on each issuer</h1>
+        <canvas id="myChart1" width="30" height="10"></canvas>
+    </div>
+
+    <div style="width:50%" style="float:left">
+        <h1>Number of invoice per issuer</h1>
+        <canvas id="myChart2" width="30" height="10"></canvas>
+        apear
+    </div>
+
+
+    
+</div>
+</body>
+
+</html>

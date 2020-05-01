@@ -1,0 +1,228 @@
+{% extends "invoicedata/base.html" %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{% load static %}
+
+<main role="main" class=".container-fluid" style="margin-left: 16%;margin-right: auto;">
+<div class="col-md-12">
+
+    <h2>Dashboard</h2>
+    <hr>
+    <section class='statis text-center'>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="box bg-primary">
+                <i class="fa fa-inr "></i>
+                <h3>5,154</h3>
+                <p class="lead">Total Amount</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box bg-warning">
+                <i class="fa fa-industry "></i>
+                <h3>245</h3>
+                <p class="lead">Vendors</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box bg-success">
+                <i class="fa fa-shopping-cart"></i>
+                <h3>5,154</h3>
+                <p class="lead">Total Active</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box bg-danger">
+                <i class="fa fa-handshake-o"></i>
+                <h3>5,154</h3>
+                <p class="lead">Total Deactive</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <div class="card">
+
+        <div class="card-header">
+            <div class="row">
+
+                <h4 class=" mr-5"><i class="fa fa-table mr-1" aria-hidden="true"></i> Data Table</h4>
+
+
+
+
+                <div class="btn-group mr-5" role="group" aria-label="Button group with nested dropdown ">
+                    <div class="btn-group" role="group">
+
+                      <form action="/filter" method="get" name="myForm" enctype="multipart/form-data">
+                        <select name="company" >
+                            <option value="default">Issuer</option>
+                            <option value="amazon">Amazon</option>
+                            <option value="flipkart">Flipkart</option>
+                            <option value="ebay">Ebay</option>
+                        </select>
+                        <button type="submit" class="btn btn-secondary btn-sm">Apply</button>
+                    </form>
+                    </div>
+                </div>
+
+
+
+
+                <div class="btn-group mr-5" role="group" aria-label="Button group with nested dropdown ">
+                    <div class="btn-group" role="group">
+                      <form action="/filter2" method="get" name="myForm" enctype="multipart/form-data">
+                        <select name="currency">
+                          <option value="default">Currency</option>
+                          <option value="INR">INR</option>
+                          <option value="USD">USD</option>
+                          <option value="EUR">EUR</option>
+                      </select>
+                        <button type="submit" class="btn btn-secondary btn-sm">Apply</button>
+                    </form>
+                    </div>
+                </div>
+
+
+
+
+                <div class="btn-group mr-5" role="group" aria-label="Button group with nested dropdown ">
+                  
+                  <div class="btn-group" role="group">
+                    <form action="/filter1" method="get" name="myForm" enctype="multipart/form-data">
+                      <select name="amount" >
+                        <option value="default">Amount</option>
+                        <option value="100">>100</option>
+                        <option value="200">>200</option>
+                        <option value="300">>300</option>
+                    </select>
+                      <button type="submit" class="btn btn-secondary btn-sm">Apply</button>
+                  </form>
+                  </div>
+              </div>
+
+              <div class="input-group mb-3 w-25 input-control-sm">
+                <input type="text" class="form-control" placeholder="Search Issuer" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
+                </div>
+              </div>
+
+            </div>
+          </div> 
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+                <th style="width:200px">Issuer</th>
+                <th style="width:150px">Invoice No.</th>
+                <th >Date</th>						
+                <th>Amount</th>						
+                <th style="width:150px">Currency</th>
+                <th style="width:300px">Other</th>
+                <th style="width:200px">Actions</th>
+            </tr>
+          </thead>
+          {% for invoice in invoices %}
+          <tbody>
+            <tr>
+                <td >{{ invoice.issuer }}</td>
+                <td>{{ invoice.invoice_number }}</td>
+                <td>{{ invoice.date }}</td>
+                <td>{{ invoice.amount }}</td>
+                <td >{{ invoice.currency }}</td>
+                <td >{{ invoice.other }}</td>
+                <td class="col-sm-3" >
+                    <a href="{% url 'invoice-detail' invoice.id %}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                    <a href="{% url 'invoice-update' invoice.id %}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a href="{% url 'invoice-delete' invoice.id %}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+          </tbody>
+          {% endfor %}
+        </table>
+      </div>
+      
+      <script src="{% static 'js/yearGraph.js' %}" type="text/javascript"></script>
+      
+
+
+
+
+
+
+      <div class="row mt-3">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              Yearly Amount Spend
+            </div>
+            <div class="card-body">
+                 <div style="width:100%" style="float:left">
+                  <canvas id="myChart1" width="30" height="10"></canvas>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+             Invoice per Issuer
+            </div>
+            <div class="card-body">
+             
+                <div style="width:100%" style="float:left">
+
+                  <canvas id="myChart2" width="30" height="10"></canvas>
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="card mt-3">
+        <div class="card-header">
+          Featured
+        </div>
+        <div class="card-body">
+
+
+            <div style="width:60%" >
+              <h1>Monthly invoice record</h1>
+              <canvas id="myChart" width="30" height="10"></canvas>
+              <font size="1">
+                  <form method="get" action="/invoice/graphViewMonthly/">
+      
+                    <button type="submit" name="submit" value="January"  style="width:70px;margin-left:10px">January</button></a>
+                    <button type="submit" name="submit" value="February" style="width:70px">February</button>
+                    <button type="submit" name="submit" value="March" style="width:70px">March</button>
+                    <button type="submit" name="submit" value="April" style="width:70px">April</button>
+                    <button type="submit" name="submit" value="May" style="width:70px">May</button>
+                    <button type="submit" name="submit" value="June" style="width:70px">June</button>
+                    <button type="submit" name="submit" value="July" style="width:70px">July</button>
+                    <button type="submit" name="submit" value="August" style="width:70px">August</button>
+                    <button type="submit" name="submit" value="September" style="width:70px">September</button>
+                    <button type="submit" name="submit" value="October" style="width:70px">October</button>
+                    <button type="submit" name="submit" value="November" style="width:70px">November</button>
+                    <button type="submit" name="submit" value="December" style="width:70px">December</button>
+                  </form>
+              </font>
+          </div>
+
+
+        </div>
+      </div>
+      <script src="{% static 'js/yearGraph.js' %}" type="text/javascript"></script>
+
+
+
+</div>
+</main>
+{% endblock content %}

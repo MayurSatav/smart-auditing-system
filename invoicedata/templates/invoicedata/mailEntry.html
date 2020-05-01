@@ -1,0 +1,54 @@
+{% extends "invoicedata/base.html" %}
+{% load static %}
+{% block content %}
+<main role="main" class="container" style="margin-right: 11%;">
+<div class="col-md-12">
+<h2>Download From Mail</h2>
+<hr>
+
+<div class="container">
+<div class="row">     
+<div class="col-12">
+<div class="card">
+        
+<div class="card-header">
+Featured
+</div>
+<img class="card-img" src="{% static 'images/email1.png' %}" alt="Bologna">
+<div class="card-img-overlay ">
+<div class="card" style="width:40%; margin-top:50px;" >
+<div class="card-body" >
+<h4>Login to download from mail</h4>
+<hr>
+            <form action="/checkme" method="get" name="myForm" enctype="multipart/form-data">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="text" name="mailid" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-key" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="password" name="password" class="form-control" placeholder="password" aria-label="password" aria-describedby="basic-addon1">
+                  </div>
+        
+        
+                    <button type="submit" class="btn btn-primary"> Login</button>
+                </div>
+            </form>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</main>
+{% endblock content %}

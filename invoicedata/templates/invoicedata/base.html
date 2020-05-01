@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/completeview.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/completeview.css' %}">-->
+    {% if title %}
+        <title>Django invoice - {{ title }}</title>
+    {% else %}
+        <title>Django invoice</title>
+    {% endif %}
+</head>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+  </script>
+
+<body>
+
+
+  <aside class="side-nav" id="show-side-navigation1">
+    <i class="fa fa-bars close-aside hidden-sm hidden-md hidden-lg" data-close="show-side-navigation1"></i>
+    <div class="heading" >
+      {% if user.is_authenticated %}
+      <img src="{{ user.profile.image.url }}">
+      <div class="info">
+        <h5 style="color: #AAA;">{{user.username}}</h5>
+        <p>{{user.email}}.</p>
+      </div>
+    </div>
+    {% endif %}
+    
+    <ul class="categories">
+      
+      {% if user.is_authenticated %}
+      <p>New Entry</p>
+      <li><i class="fa fa-hand-o-down fa-fw"></i><a href="{% url 'invoice-create' %}"> Manually</a></li>
+      <li><i class="fa fa-file-pdf-o fa-fw"></i><a href="{% url 'invoicedata-extractinvoice' %}"> Pdf Files</a></li>
+      <li><i class="fa fa-envelope fa-fw"></i><a href="{% url 'invoicedata-checkMail' %}"> Mail</a></li>
+      <p>Features</p>
+      <li><i class="fa fa-history fa-fw" aria-hidden="true"></i><a href="{% url 'invoicedata-home' %}"> Recent Uploads</a></li>
+      <li><i class="fa fa-tachometer fa-fw"></i><a href="{% url 'invoicedata-complete' %}"> completeview</a></li>
+      
+      <li><i class="fa fa-file-excel-o  fa-fw"></i><a href="{% url 'invoicedata-export_users_xls' %}"> Download csv</a></li>
+      <p>Other</p>
+      
+      <li><i class="fa fa-gear fa-fw"></i><a href="{% url 'profile' %}"> Settings</a></li>
+      <li><i class="fa fa-question-circle fa-fw"></i><a href="#"> Help & Support</a></li>
+      <li><i class="fa fa-sign-out fa-fw"></i><a href="{% url 'logout' %}"> Logout</a></li>
+      <li><i class="fa fa-info fa-fw"></i><a href="{% url 'invoicedata-about' %}"> About</a></li>
+      {% else %}
+      <li><i class="fa fa-sign-in fa-fw"></i><a href="{% url 'login' %}"> Login</a></li>
+      <li><i class="fa fa-gear fa-fw"></i><a href="{% url 'register' %}"> Register</a></li>
+      <li><i class="fa fa-question-circle fa-fw"></i><a href="#"> Help & Support</a></li>
+      <li><i class="fa fa-info fa-fw"></i><a href="{% url 'invoicedata-about' %}"> About</a></li>
+      {% endif %}
+    </ul>
+  </aside>
+  
+
+
+
+    <header class="site-header d-flex justify-content-center"   >
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container" style="margin-right: 10%;" >
+          <a class="navbar-brand mr-4" href="{% url 'invoicedata-home' %}">EzManager</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'invoicedata-home' %}"> <i class="fa fa-home" aria-hidden="true"> Home</i></a>
+              <a class="nav-item nav-link" href="{% url 'invoicedata-about' %}"><i class="fa fa-info-circle" aria-hidden="true"> About</i></a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"> Logout</i></a>
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true"> Login</i></a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+      {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+              </div>
+          {% endfor %}
+        {% endif %}
+      {% block content %}{% endblock %}
+    
+    <main role="main" class="container" style="margin-right: 11%;">
+        <div class="col-md-12">
+          
+        </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script href="{% static 'js/webspro.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

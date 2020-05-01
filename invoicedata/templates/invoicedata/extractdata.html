@@ -1,0 +1,69 @@
+{% extends "invoicedata/base.html" %}
+{% load static %}
+{% block content %}
+
+<main role="main" class="container" style="margin-right: 11%;">
+<div class="col-md-12">
+<h2>Extract From Pdf</h2>
+<hr>
+
+<div class="container">
+<div class="row">     
+<div class="col-12">
+<div class="card">
+    
+    <div class="card-header">
+    Featured
+    </div>
+    <img class="card-img" src="{% static 'images/pdf1.png' %}" alt="bgimage">
+    <div class="card-img-overlay ">
+
+
+    <div class="card" style="width:40%; margin-top:50px;" >
+    <div class="card-body" >
+        <form method="POST" class="post-form" enctype="multipart/form-data">
+            {% csrf_token %}  
+            {{ form.as_p }}
+            <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+            <span id="status"></span>
+            <h1 id="finalMessage"></h1>
+            
+            <input class="btn btn-primary" onclick='start(0)' type="Submit" name="submit" value="Extract & Save">
+            
+        </form>
+        <br>
+        <h5>EXtracted Data will appear here</h5>
+        <hr>
+        
+        {% for key, value in result.items %}
+        <h6>{{key}} : {{value}}</h6>
+        {% endfor %}
+    </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+function start(al) {
+var bar = document.getElementById('progressBar');
+var status = document.getElementById('status');
+status.innerHTML = al + "%";
+bar.value = al;
+al++;
+var sim = setTimeout("start(" + al + ")", 1);
+if (al == 100) {
+    status.innerHTML = "100%";
+    bar.value = 100;
+    clearTimeout(sim);
+    var finalMessage = document.getElementById('finalMessage');
+    finalMessage.innerHTML = "Data is Extracted";
+}
+}
+</script>
+
+</div>
+</main>
+{% endblock content %}

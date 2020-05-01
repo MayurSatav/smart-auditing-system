@@ -1,0 +1,49 @@
+{% extends "invoicedata/base.html" %}
+{% block content %}
+
+<main role="main" class="container" style="margin-right: 11%;">
+  <div class="col-md-12">
+    <h2>Recent Uploads</h2>
+    <hr>
+
+    <div class="row ">
+      
+      {% for invoice in invoices %}
+      <div class="col-sm-6" >
+        <div class="card" >
+          <h5 class="card-header"><a class="article-title" href="{% url 'invoice-detail' invoice.id %}">{{ invoice.issuer }} </a></h5>
+          <div class="card-body" style="height: 20rem;overflow:scroll;" >
+            
+
+            <small class="text-muted">Invoice Number</small>
+            <p class="article-content">{{ invoice.invoice_number }}</p>
+            <small class="text-muted">Date</small>
+            <p class="article-content">{{ invoice.date }}</p>
+            <small class="text-muted">Amount</small>
+            <p class="article-content">{{ invoice.amount }}</p>
+            <small class="text-muted">Currency</small>
+            <p class="article-content">{{ invoice.currency }}</p>
+            <small class="text-muted">Other Extracted Data</small>
+              <p class="article-content" style=" text-align: justify; text-justify: inter-word; overflow:scroll; ">{{ invoice.other }}</p>
+
+            
+          </div>
+          <div class="card-footer text-muted">
+            {{ invoice.date_posted|date:"F d, Y" }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+
+
+
+
+
+    
+
+      
+    </div>
+  </main>
+{% endblock content %}
