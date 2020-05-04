@@ -4,10 +4,14 @@
 Develop UI for data extraction from invoices pdf using computer vision
 
 ## Abstract
-n industry we receives many pdf documents of bills and invoices, which we later proceed manually so consumes time and non productive activity. In this project we are going to develop UI where user can upload invoice file (pdf or jpg) then using image processing it will automatically extract text and segregate it into different parts like Vendor name, Invoice number, item name and item quantity. We will use different image processing methods like HOG transform, Canny Edge detection, SURF & SHIFT and then proceed with tesseract python libraries. To improve text contents we can use natural language tool kits. We will develop web based UI.
+In businesses we receives many pdf documents of bills and invoices, which we later proceed manually so consumes time and non productive activity.Management of invoices and maintaining their records for further processing sometimes it is hectic and buying specially developed software is not worth for small enterprises. The majority of the businesses has similar requirements and most of them use the traditional management system like recording data manually and maintaining hard copies, a result, it consumes a lot of time as well as space.  In this project we have developed  UI where user can upload invoice file (pdf or jpg) then using image processing it will automatically extract text and segregate it into different parts like Vendor name, Invoice number, item name and item quantity. it is a django web-based application specially built for small businesses like retailers and wholesalers. It is a standard business application made according to the standard requirements of businesses. Our system tries to find out a better Management solution for auditing.We have initially focus on pdf/image invoices.
+
+
+Our system follows three main modules first one is pre-processing with the help of different OpenCV’s techniques like dilation and otsu binarization algorithms, then the next step is data extraction with the help of OCR based Tesseract technology and post-processing with the help of RegEx technology for better accuracy. The prime objective is to make data available for the user so that the user can access it anytime from anywhere and can modify it if need. Considering availability and accessibility, this web-based application will help to achieve objectives.
 
 ## Keywords
-Python, OpenCV, Tesseract, HOG, SURF and SHIFT, (for UI web based solution so HTML, CSS and javascript)
+Python, OpenCV, Tesseract, OTSU's Binerisation (for UI web based solution so HTML, CSS and javascript)
+
 
 
 
