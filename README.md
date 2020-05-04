@@ -15,15 +15,15 @@ Our system follows three main modules first one is pre-processing with the help 
 In global thresholding, we used an arbitrary chosen value as a threshold. In contrast, Otsu's method avoids having to choose a value and determines it automatically.
 Consider an image with only two distinct image values (bimodal image), where the histogram would only consist of two peaks. A good threshold would be in the middle of those two values. Similarly, Otsu's method determines an optimal global threshold value from the image histogram.
 
+![otsu](https://github.com/MayurSatav/smart-auditing-system/blob/master/other/otsu.png)
+
 ## Architecture
+
+![Architecture](https://github.com/MayurSatav/smart-auditing-system/blob/master/other/archi.png)
 
 ## Technology Stack
 
-
-
-
-
-
+![Technology](https://github.com/MayurSatav/smart-auditing-system/blob/master/other/technologystack.png)
 
 
 ## Developers
